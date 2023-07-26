@@ -22,6 +22,7 @@ class ChatGPTCompletions {
     TextCompletionsParams params, {
     Function(String p1)? onStreamValue,
     Function(StreamSubscription? p1)? onStreamCreated,
+    Function(String p1)? onError,
     Duration debounce = Duration.zero,
     String? forceKey,
   }) async {
@@ -31,6 +32,7 @@ class ChatGPTCompletions {
       onStreamValue: onStreamValue,
       onStreamCreated: onStreamCreated,
       debounce: debounce,
+      onError: onError
     );
   }
 

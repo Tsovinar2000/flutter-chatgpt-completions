@@ -51,6 +51,7 @@ class TextCompletionsRepository extends TextCompletionsRepositoryInterface {
     TextCompletionsParams params, {
     Function(String p1)? onStreamValue,
     Function(StreamSubscription? p1)? onStreamCreated,
+    Function(String error)? onError,
     Duration debounce = Duration.zero,
   }) async {
     String responseText = '';
@@ -102,6 +103,8 @@ class TextCompletionsRepository extends TextCompletionsRepositoryInterface {
       );
 
       if (response.statusCode != 200) {
+        onError?.call(
+            "status code: ${response.statusCode}, error: ${response.data}");
         throw Exception(
           "status code: ${response.statusCode}, error: ${response.data}",
         );
