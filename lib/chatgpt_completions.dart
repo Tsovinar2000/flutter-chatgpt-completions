@@ -23,17 +23,17 @@ class ChatGPTCompletions {
     Function(String p1)? onStreamValue,
     Function(StreamSubscription? p1)? onStreamCreated,
     Function(String p1)? onError,
+    Function()? onDone,
     Duration debounce = Duration.zero,
     String? forceKey,
   }) async {
     return await TextCompletionsRepository().textCompletions(
-      forceKey ?? _apiKey,
-      params,
-      onStreamValue: onStreamValue,
-      onStreamCreated: onStreamCreated,
-      debounce: debounce,
-      onError: onError
-    );
+        forceKey ?? _apiKey, params,
+        onStreamValue: onStreamValue,
+        onStreamCreated: onStreamCreated,
+        debounce: debounce,
+        onError: onError,
+        onDone: onDone);
   }
 
   /// Singleton factory

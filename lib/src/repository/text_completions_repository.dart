@@ -52,6 +52,7 @@ class TextCompletionsRepository extends TextCompletionsRepositoryInterface {
     Function(String p1)? onStreamValue,
     Function(StreamSubscription? p1)? onStreamCreated,
     Function(String error)? onError,
+    Function()? onDone,
     Duration debounce = Duration.zero,
   }) async {
     String responseText = '';
@@ -90,7 +91,10 @@ class TextCompletionsRepository extends TextCompletionsRepositoryInterface {
       );
 
       onStreamCreated?.call(responseStream);
-
+      responseStream?.onDone(() {
+        print('DONE');
+        onDone?.call();
+      });
       await responseStream?.asFuture();
       responseStream?.cancel();
     } else {
