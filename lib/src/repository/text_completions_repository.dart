@@ -91,12 +91,13 @@ class TextCompletionsRepository extends TextCompletionsRepositoryInterface {
       );
 
       onStreamCreated?.call(responseStream);
-      responseStream?.onDone(() {
-        print('DONE');
-        onDone?.call();
-      });
+      // responseStream?.onDone(() {
+      //   print('DONE');
+      //   onDone?.call();
+      // });
       await responseStream?.asFuture();
-      responseStream?.cancel();
+      await responseStream?.cancel();
+      onDone?.call();
     } else {
       final Response response = await _openAIClient.post(
         params.isChatCompletion
