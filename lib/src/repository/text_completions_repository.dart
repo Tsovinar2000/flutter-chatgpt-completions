@@ -66,6 +66,13 @@ class TextCompletionsRepository extends TextCompletionsRepositoryInterface {
         options: _getOptions(apiKey, responseType: ResponseType.stream),
       );
 
+      if (response.statusCode != 200) {
+        onError?.call(
+            "status code: ${response.statusCode}, error: ${response.data}");
+        throw Exception(
+          "status code: ${response.statusCode}, error: ${response.data}",
+        );
+      }
       DecoderQueueService.instance.initialize();
 
       final StreamSubscription<Uint8List>? responseStream = response
